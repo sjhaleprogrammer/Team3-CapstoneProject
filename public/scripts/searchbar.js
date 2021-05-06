@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
           `
             <div class="box">
 
-              <h1 style = "font-size: 20px;">${match.lowercaseDescription} </h1>
+              <h1 style = "font-size: 25px;">${match.lowercaseDescription} </h1>
               <p>${match.foodNutrients[2].value} Carbs</p>
 
             </div>
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
           `
             <div class="box">
 
-              <h1 style = "font-size: 20px;">${match.lowercaseDescription} - ${match.brandOwner} </h1>
+              <h1 style = "font-size: 25px;">${match.lowercaseDescription} - ${match.brandOwner} </h1>
               <p>${match.foodNutrients[2].value} Carbs</p>
 
             </div>
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       i.addEventListener("mouseover", function( event ) {
         // highlight the mouseover target
-        this.style.background = "LightBlue";
+        this.style.background = "rgb(255,99,132)";
       
       });
 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dictionary.innerHTML += `
                                   <div class="control">
                                     <div class="tags has-addons" name="${carbs}"> 
-                                      <a class="tag is-info">${food} - ${carbs}g</a>
+                                      <a class="tag is-danger">${food} - ${carbs}g</a>
                                       <a class="tag is-delete"> </a> 
                                     </div>
                                   </div>

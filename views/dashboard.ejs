@@ -19,8 +19,9 @@
     <script src="/scripts/dashboard.js"></script>
 
     <script> 
-      graph('<%- JSON.stringify(locals.data, null, 0) %>'); 
-      notifications('<%- JSON.stringify(locals.data, null, 0) %>','<%- locals.firsttime %>');  
+      translate('<%- JSON.stringify(locals.translatedPhrases, null, 0) %>');
+      graph('<%- JSON.stringify(locals.data, null, 0) %>', '<%- JSON.stringify(locals.translatedPhrases, null, 0) %>'); 
+      notifications('<%- JSON.stringify(locals.data, null, 0) %>','<%- locals.firsttime %>', '<%- JSON.stringify(locals.translatedPhrases, null, 0) %>');  
     </script>
 
     
@@ -61,7 +62,7 @@
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
-            Select a language
+            <%= __('choose_language') %>
           </a>
   
           <div class="navbar-dropdown">

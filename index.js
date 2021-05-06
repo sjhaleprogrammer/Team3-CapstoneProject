@@ -43,6 +43,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.static("node_modules"));
 app.use(express.static(__dirname + "/dist"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(i18n.init);
 app.use(flash());
@@ -77,8 +78,23 @@ app.get("/", function (req, res) {
   res.render("home");
 });
 
+var dashboardPhrasesToTranslate = ["high_value","low_value", "time", "blood_glucose_chart", "glucose"];
+for (i = 1; i <= 20; i++){
+  dashboardPhrasesToTranslate.push("low" + i.toString());
+};
+for (j = 1; j <= 19; j++){
+  dashboardPhrasesToTranslate.push("normal" + j.toString());
+};
+for (k = 1; k <= 20; k++){
+  dashboardPhrasesToTranslate.push("high" + k.toString());
+};
+dashboardPhrasesToTranslate.push("notifTitle");
+
 // Showing dashboard page
 app.get("/dashboard", isLoggedIn, function (req, res) {
+
+  
+  var translatedArray = dashboardPhrasesToTranslate.map(translate);
   
   if (req.session.firsttime == true){
     UserData.findById(req.user._id, 
@@ -86,7 +102,7 @@ app.get("/dashboard", isLoggedIn, function (req, res) {
         if (err) {
           throw new Error("Not found");
         }
-        res.render("dashboard", { data: docs, username: req.user.username, firsttime: true});
+        res.render("dashboard", { translatedPhrases: translatedArray, data: docs, username: req.user.username, firsttime: true});
     });  
 
     req.session.firsttime = false;
@@ -98,12 +114,14 @@ app.get("/dashboard", isLoggedIn, function (req, res) {
         if (err) {
           throw new Error("Not found");
         }
-        res.render("dashboard", { data: docs, username: req.user.username, firsttime: false});
+        res.render("dashboard", { translatedPhrases: translatedArray, data: docs, username: req.user.username, firsttime: false});
     });  
 
   }
   
-  
+  function translate(phrase){
+    return res.__(phrase);
+  }
 
 });
 
@@ -127,6 +145,7 @@ app.post("/dashboard", isLoggedIn, function (req, res) {
   var glucoselevel = req.body.glucoselevel;
   var timestamp = timestamps.maketimestamp(new Date()); 
   var carb = req.body.carbs;
+  var translatedArray = dashboardPhrasesToTranslate.map(translate);
 
   UserData.findOneAndUpdate(
     {
@@ -165,8 +184,12 @@ app.post("/dashboard", isLoggedIn, function (req, res) {
         console.log(err);
         }
         console.log("Result: ", docs);
-        res.render("dashboard", { data: docs, username: req.user.username, firsttime: false });
+        res.render("dashboard", {translatedPhrases: translatedArray, data: docs, username: req.user.username, firsttime: false });
   });
+
+  function translate(phrase){
+    return res.__(phrase);
+  }
 
 });
 
@@ -246,6 +269,16 @@ app.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");
 });
+
+// app.post("/translations", function(req, res) {
+//   var translated = req.body['translateThis'].map(translate);
+//   res.send(translated);
+//   console.log(translated);
+
+//   function translate(phrase){
+//     return res.__(phrase);
+//   }
+// });
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();

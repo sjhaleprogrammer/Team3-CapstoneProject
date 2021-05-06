@@ -41,7 +41,7 @@
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          Select a language
+          <%= __('choose_language') %>
         </a>
 
         <div class="navbar-dropdown">
@@ -57,7 +57,7 @@
       </div>
 
       <a href="/about" class="navbar-item">
-        About us
+        <%= __('aboutUs') %>
       </a>
 
 
@@ -96,26 +96,21 @@
     
       <br>
       <br>
-      <h1><span style="font-size:3vw;">About</span></h1>
+      <h1><span style="font-size:3vw;"><%= __('about') %></span></h1>
       <br>
 
       <p style="font-size:1vw; ">
-        Hi! We are Team3 and this is our capstone programming project.
+        <%= __('aboutBodyp1') %>
         <br>
         <br>
-        Tasked with creating a simple, easy to use app to track blood-glucose, for our capstone programming project 
-        at Wake Technical Community College, we dove in to create the simplest, easiest tracker around. 
-        Many individuals still struggle with the use of technology. Our goal here was to create an 
-        application that functioned as simply as possible to reduce the barriers to these individuals.
-        GlucoCheck is free, simple and has no intrusive features.
-        Managing your blood-glucose levels is hard enough. Give GlucoCheck a try! Be well, know your BGL!
+        <%= __('aboutBodyp2') %>
 
       </p>
   
       <br><br><br>
   
   
-      <h1><span style="font-size:1.6vw;">Contact Us</span></h1>
+      <h1><span style="font-size:1.6vw;"><%= __('contact') %></span></h1>
 
 
       <a href="mailto:GlucoHelp@outlook.com">GlucoHelp@outlook.com</a>
